@@ -29,19 +29,6 @@ namespace MonkeysAudioSharp
 			this.waveFormat =  new WaveFormat(sampleRate, bitsPerSample, channels);
 		}
 
-		/// <summary>
-		/// Destructor
-		/// </summary>
-		/*~ApeReader()
-		{
-			ApeNative.c_APEDecompress_Destroy(Handle);
-		}*/
-
-		public override bool CanSeek
-		{
-			get { return true; }
-		}
-
 		public override int Read(byte[] buffer, int offset, int count)
 		{
 			sbyte[] tempBuf = new sbyte[count];
