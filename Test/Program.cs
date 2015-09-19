@@ -14,7 +14,7 @@ namespace Test
 		{
 			// Initialization
 			Console.OutputEncoding = Encoding.UTF8;
-			ApeReader ape = new ApeReader(args[0]);
+			var ape = new ApeReader(args[0]);
 			DisplayInformation(ape.Handle);
 
 			// Set up the player.
@@ -23,10 +23,10 @@ namespace Test
 			player.Play();
 
 			// Listen for key presses to pause/play audio.
-			bool isPlaying = true;
+			var isPlaying = true;
 			do
 			{
-				ConsoleKeyInfo keyInfo = Console.ReadKey();
+				var keyInfo = Console.ReadKey();
 				if (keyInfo.Key == ConsoleKey.Spacebar)
 				{
 					if (isPlaying)
@@ -52,18 +52,18 @@ namespace Test
 
 		private static void DisplayInformation(IntPtr handle)
 		{
-			Console.WriteLine("Number of channels     : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.Channels));
-			Console.WriteLine("Sample rate (Hz)       : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.SampleRate)); ;
-			Console.WriteLine("Compression Level      : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.CompressionLevel));
-			Console.WriteLine("Average Bitrate        : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.AverageBitrate));
-			Console.WriteLine("Bits per sample        : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.BitsPerSample));
-			Console.WriteLine("Block Alignment        : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.BlockAlignment));
-			Console.WriteLine("Blocks per frame       : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.BlocksPerFrame));
-			Console.WriteLine("Total Frames           : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.TotalFrames));
-			Console.WriteLine("Total Blocks           : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.TotalBlocks));
-			Console.WriteLine("Total size (compressed): " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.ApeTotalBytes));
-			Console.WriteLine("Length in milliseconds : " + ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.LengthInMs));
-			Console.WriteLine("Length in seconds      : " + (ApeNative.Decompress_GetInfoInt(handle, ApeNative.DecompressInfo.LengthInMs) / 1000));
+			Console.WriteLine("Number of channels     : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.Channels));
+			Console.WriteLine("Sample rate (Hz)       : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.SampleRate)); ;
+			Console.WriteLine("Compression Level      : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.CompressionLevel));
+			Console.WriteLine("Average Bitrate        : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.AverageBitrate));
+			Console.WriteLine("Bits per sample        : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.BitsPerSample));
+			Console.WriteLine("Block Alignment        : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.BlockAlignment));
+			Console.WriteLine("Blocks per frame       : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.BlocksPerFrame));
+			Console.WriteLine("Total Frames           : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.TotalFrames));
+			Console.WriteLine("Total Blocks           : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.TotalBlocks));
+			Console.WriteLine("Total size (compressed): " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.ApeTotalBytes));
+			Console.WriteLine("Length in milliseconds : " + ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.LengthInMs));
+			Console.WriteLine("Length in seconds      : " + (ApeNative.Decompress_GetInfoInt(handle, DecompressInfo.LengthInMs) / 1000));
 		}
 	}
 }

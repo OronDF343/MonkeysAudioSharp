@@ -8,9 +8,7 @@ namespace MonkeysAudioSharp
 	/// </summary>
 	public sealed class ApeReader : WaveStream
 	{
-		private readonly WaveFormat waveFormat;
-
-		/// <summary>
+	    /// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="filename">Path to the APE file to read.</param>
@@ -23,15 +21,15 @@ namespace MonkeysAudioSharp
 				throw new ArgumentException("Unable to create a decoder.");
 
 			// Initialize the WaveFormat
-			int sampleRate    = ApeNative.Decompress_GetInfoInt(Handle, ApeNative.DecompressInfo.SampleRate);
-			int bitsPerSample = ApeNative.Decompress_GetInfoInt(Handle, ApeNative.DecompressInfo.BitsPerSample);
-			int channels      = ApeNative.Decompress_GetInfoInt(Handle, ApeNative.DecompressInfo.Channels);
-			this.waveFormat =  new WaveFormat(sampleRate, bitsPerSample, channels);
+			var sampleRate    = ApeNative.Decompress_GetInfoInt(Handle, DecompressInfo.SampleRate);
+			var bitsPerSample = ApeNative.Decompress_GetInfoInt(Handle, DecompressInfo.BitsPerSample);
+			var channels      = ApeNative.Decompress_GetInfoInt(Handle, DecompressInfo.Channels);
+			WaveFormat =  new WaveFormat(sampleRate, bitsPerSample, channels);
 		}
 
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			sbyte[] tempBuf = new sbyte[count];
+			var tempBuf = new sbyte[count];
 
 			// Decode samples into tempBuf.
 			int retrievedBlocks;
@@ -42,21 +40,15 @@ namespace MonkeysAudioSharp
 			return count;
 		}
 
-		public override WaveFormat WaveFormat
-		{
-			get { return waveFormat; }
-		}
+		public override WaveFormat WaveFormat { get; }
 
-		public override long Length
-		{
-			get { return ApeNative.Decompress_GetInfoInt(Handle, ApeNative.DecompressInfo.TotalBlocks) * BlockAlign; }
-		}
+	    public override long Length => ApeNative.Decompress_GetInfoInt(Handle, DecompressInfo.TotalBlocks) * BlockAlign;
 
-		public override long Position
+	    public override long Position
 		{
 			get
 			{
-				int blockPos = ApeNative.Decompress_GetInfoInt(Handle, ApeNative.DecompressInfo.DecompressCurrentBlock);
+				var blockPos = ApeNative.Decompress_GetInfoInt(Handle, DecompressInfo.DecompressCurrentBlock);
 
 				// Convert the block position into a byte offset.
 				return (blockPos * BlockAlign);
@@ -65,7 +57,7 @@ namespace MonkeysAudioSharp
 			set
 			{
 				// Convert to a block position
-				long blockPos = (value / BlockAlign);
+				var blockPos = (value / BlockAlign);
 
 				ApeNative.c_APEDecompress_Seek(Handle, (int) blockPos);
 			}
