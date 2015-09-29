@@ -5,7 +5,11 @@ Includes a WaveStream implementation for NAudio.
 
 Should work on Windows XP or newer 32/64-bit with .NET Framework 4 or newer.
 
-# License
+# License for this C# code
+
+    The original author didn't provide a license
+
+# License for using Monkey's Audio SDK
 
     Monkey's Audio SDK and Source Code License Agreement
 
